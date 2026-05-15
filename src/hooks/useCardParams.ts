@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { encodeCardConfig } from '../utils/encodeParams'
 import { decodeCardConfig } from '../utils/decodeParams'
@@ -10,6 +11,8 @@ export function generateCardUrl(config: CardConfig): string {
 
 export function useDecodedCard(): CardConfig | null {
   const { encoded } = useParams<{ encoded: string }>()
-  if (!encoded) return null
-  return decodeCardConfig(encoded)
+  return useMemo(() => {
+    if (!encoded) return null
+    return decodeCardConfig(encoded)
+  }, [encoded])
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import i18n from '../i18n'
@@ -6,12 +6,12 @@ import { useDecodedCard } from '../hooks/useCardParams'
 import { usePageMeta } from '../hooks/usePageMeta'
 import CardLoadingAnimation from '../features/business-card/CardLoadingAnimation'
 import CardFlipContainer from '../features/business-card/CardFlipContainer'
-import { useEffect } from 'react'
 
 export default function CardPage() {
   const config = useDecodedCard()
   const { t } = useTranslation()
   const [loading, setLoading] = useState(true)
+  const handleLoadComplete = useCallback(() => setLoading(false), [])
 
   useEffect(() => {
     if (!config) return
@@ -71,7 +71,7 @@ export default function CardPage() {
       }}
     >
       {loading && (
-        <CardLoadingAnimation onComplete={() => setLoading(false)} />
+        <CardLoadingAnimation onComplete={handleLoadComplete} />
       )}
       {!loading && <CardFlipContainer config={config} />}
     </div>
