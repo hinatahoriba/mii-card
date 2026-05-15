@@ -10,8 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/lz-string": "^1.3.34",
+    "framer-motion": "^12.38.0",
+    "i18next": "^26.2.0",
+    "lz-string": "^1.5.0",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "react-i18next": "^17.0.8",
+    "react-router-dom": "^6.30.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
