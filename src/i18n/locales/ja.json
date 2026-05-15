@@ -5,7 +5,8 @@
     "generateButton": "QRコードを生成する",
     "templateSection": "テンプレートを選ぶ",
     "profileSection": "プロフィールを入力",
-    "snsSection": "SNSリンクを追加"
+    "snsSection": "SNSリンクを追加",
+    "nameRequired": "名前を入力してください"
   },
   "profile": {
     "name": "名前",
@@ -26,6 +27,9 @@
   },
   "card": {
     "flip": "タップして裏面を見る",
-    "loading": "名刺を読み込んでいます..."
+    "loading": "名刺を読み込んでいます...",
+    "noSns": "SNSリンクが登録されていません",
+    "notFound": "名刺が見つかりません",
+    "backToTop": "トップへ戻る"
   }
 }

@@ -18,19 +18,28 @@ export default function LandingPage() {
   const { config, setTemplateSetId, setProfileField, toggleSnsLink, updateSnsUrl } = useTemplateState()
   const [isQrOpen, setIsQrOpen] = useState(false)
   const [cardUrl, setCardUrl] = useState('')
+  const [nameError, setNameError] = useState('')
 
   const handleGenerate = () => {
+    if (config.name.trim() === '') {
+      setNameError(t('lp.nameRequired'))
+      document.getElementById('profile-name')?.focus()
+      return
+    }
+    setNameError('')
     setCardUrl(generateCardUrl(config))
     setIsQrOpen(true)
   }
 
   return (
-    <div style={{ maxWidth: '480px', margin: '0 auto', padding: '16px' }}>
+    <div style={{ maxWidth: '480px', margin: '0 auto', padding: '16px', textAlign: 'left' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-        <h1 style={{ margin: 0 }}>{t('lp.title')}</h1>
+        <h1 style={{ margin: 0, fontSize: 'clamp(24px, 6vw, 40px)', letterSpacing: '-0.5px' }}>
+          {t('lp.title')}
+        </h1>
         <LanguageSwitcher />
       </div>
-      <p>{t('lp.subtitle')}</p>
+      <p style={{ marginBottom: '8px' }}>{t('lp.subtitle')}</p>
 
       <h2>{t('lp.templateSection')}</h2>
       <TemplateSetPicker
@@ -44,7 +53,11 @@ export default function LandingPage() {
         company={config.company}
         title={config.title}
         bio={config.bio}
-        onChange={setProfileField}
+        onChange={(field, value) => {
+          setProfileField(field, value)
+          if (field === 'name' && value.trim() !== '') setNameError('')
+        }}
+        nameError={nameError}
       />
 
       <h2>{t('lp.snsSection')}</h2>
@@ -56,14 +69,12 @@ export default function LandingPage() {
 
       <button
         onClick={handleGenerate}
-        disabled={config.name.trim() === ''}
         style={{
           marginTop: '24px',
           width: '100%',
           padding: '12px',
           fontSize: '16px',
-          cursor: config.name.trim() === '' ? 'not-allowed' : 'pointer',
-          opacity: config.name.trim() === '' ? 0.5 : 1,
+          cursor: 'pointer',
         }}
       >
         {t('lp.generateButton')}

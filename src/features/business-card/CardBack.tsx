@@ -9,6 +9,7 @@ import {
 } from 'react-icons/si'
 import { FaLinkedin } from 'react-icons/fa6'
 import type { IconType } from 'react-icons'
+import { useTranslation } from 'react-i18next'
 import { TEMPLATE_SETS } from '../../constants/templateSets'
 import { SNS_CONFIG } from '../../constants/snsConfig'
 import type { CardConfig, SnsPlatform } from '../../types/card'
@@ -16,9 +17,6 @@ import type { CardConfig, SnsPlatform } from '../../types/card'
 type Props = {
   config: CardConfig
 }
-
-const CARD_WIDTH = 400
-const CARD_HEIGHT = Math.round(CARD_WIDTH / 1.618)
 
 const PLATFORM_ICONS: Record<SnsPlatform, IconType> = {
   line: SiLine,
@@ -53,22 +51,21 @@ function resolveUrl(platform: SnsPlatform, url: string): string {
 }
 
 export default function CardBack({ config }: Props) {
+  const { t } = useTranslation()
   const templateSet = TEMPLATE_SETS.find((t) => t.id === config.templateSetId) ?? TEMPLATE_SETS[0]
 
   return (
     <div
       style={{
+        width: '100%',
+        height: '100%',
         position: 'relative',
-        width: `${CARD_WIDTH}px`,
-        height: `${CARD_HEIGHT}px`,
-        maxWidth: '100%',
         borderRadius: '16px',
         overflow: 'hidden',
         boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
         backgroundImage: `url(${templateSet.backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        flexShrink: 0,
       }}
     >
       {/* 半透明オーバーレイ */}
@@ -105,7 +102,7 @@ export default function CardBack({ config }: Props) {
               fontSize: '13px',
             }}
           >
-            SNSリンクが登録されていません
+            {t('card.noSns')}
           </div>
         ) : (
           config.snsLinks.map(({ platform, url }) => {
@@ -131,6 +128,7 @@ export default function CardBack({ config }: Props) {
                   fontWeight: 600,
                   letterSpacing: '0.02em',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                  flexShrink: 0,
                 }}
               >
                 <Icon size={20} />

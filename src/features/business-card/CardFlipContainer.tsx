@@ -5,8 +5,8 @@ import CardFront from './CardFront'
 import CardBack from './CardBack'
 import type { CardConfig } from '../../types/card'
 
-const CARD_WIDTH = 400
-const CARD_HEIGHT = Math.round(CARD_WIDTH / 1.618)
+// 黄金比 (横:縦 = 1.618:1)
+const CARD_ASPECT = 1.618
 
 type Props = {
   config: CardConfig
@@ -17,15 +17,14 @@ export default function CardFlipContainer({ config }: Props) {
   const { t } = useTranslation()
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', width: '100%' }}>
       <div
         style={{
           perspective: '1000px',
-          width: `${CARD_WIDTH}px`,
-          height: `${CARD_HEIGHT}px`,
+          width: '400px',
           maxWidth: '100%',
+          aspectRatio: `${CARD_ASPECT} / 1`,
           cursor: 'pointer',
-          flexShrink: 0,
         }}
         onClick={() => setIsFlipped((prev) => !prev)}
       >

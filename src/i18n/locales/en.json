@@ -5,7 +5,8 @@
     "generateButton": "Generate QR Code",
     "templateSection": "Choose a Template",
     "profileSection": "Enter Your Profile",
-    "snsSection": "Add SNS Links"
+    "snsSection": "Add SNS Links",
+    "nameRequired": "Please enter your name"
   },
   "profile": {
     "name": "Name",
@@ -26,6 +27,9 @@
   },
   "card": {
     "flip": "Tap to flip",
-    "loading": "Loading card..."
+    "loading": "Loading card...",
+    "noSns": "No SNS links registered",
+    "notFound": "Card not found",
+    "backToTop": "Back to Top"
   }
 }
