@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import CardLoadingAnimation from '../features/business-card/CardLoadingAnimation'
-import CardFront from '../features/business-card/CardFront'
-import CardBack from '../features/business-card/CardBack'
+import CardFlipContainer from '../features/business-card/CardFlipContainer'
 import type { CardConfig } from '../types/card'
 
 const DUMMY_CONFIG: CardConfig = {
@@ -39,8 +38,7 @@ export default function CardPage() {
       {loading && (
         <CardLoadingAnimation onComplete={() => setLoading(false)} />
       )}
-      <CardFront config={DUMMY_CONFIG} />
-      <CardBack config={DUMMY_CONFIG} />
+      <CardFlipContainer config={DUMMY_CONFIG} />
     </div>
   )
 }
