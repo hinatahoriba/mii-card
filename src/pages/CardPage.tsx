@@ -1,26 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import i18n from '../i18n'
+import { useDecodedCard } from '../hooks/useCardParams'
 import CardLoadingAnimation from '../features/business-card/CardLoadingAnimation'
 import CardFlipContainer from '../features/business-card/CardFlipContainer'
-import type { CardConfig } from '../types/card'
-
-const DUMMY_CONFIG: CardConfig = {
-  templateSetId: 1,
-  name: '山田 太郎',
-  company: '株式会社サンプル',
-  title: 'フロントエンドエンジニア',
-  bio: 'ものづくりが好きです。',
-  snsLinks: [
-    { platform: 'line', url: 'yamada_taro' },
-    { platform: 'instagram', url: 'https://www.instagram.com/yamada_taro/' },
-    { platform: 'x', url: 'https://x.com/yamada_taro' },
-    { platform: 'github', url: 'https://github.com/yamada-taro' },
-    { platform: 'whatsapp', url: '819012345678' },
-  ],
-  locale: 'ja',
-}
 
 export default function CardPage() {
+  const config = useDecodedCard()
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!config) return
+    i18n.changeLanguage(config.locale)
+    document.title = config.name
+  }, [config])
+
+  if (!config) {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '16px',
+          fontFamily: 'sans-serif',
+        }}
+      >
+        <p style={{ fontSize: '18px', margin: 0, color: '#374151' }}>
+          名刺が見つかりません / Card not found
+        </p>
+        <Link to="/" style={{ color: '#6366f1', textDecoration: 'underline' }}>
+          トップへ戻る / Back to Top
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -38,7 +54,7 @@ export default function CardPage() {
       {loading && (
         <CardLoadingAnimation onComplete={() => setLoading(false)} />
       )}
-      <CardFlipContainer config={DUMMY_CONFIG} />
+      {!loading && <CardFlipContainer config={config} />}
     </div>
   )
 }
