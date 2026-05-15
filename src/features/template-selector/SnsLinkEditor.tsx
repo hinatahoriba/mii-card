@@ -5,10 +5,10 @@ import {
   SiX,
   SiFacebook,
   SiTiktok,
-  SiLinkedin,
   SiWhatsapp,
   SiGithub,
 } from 'react-icons/si'
+import { FaLinkedin } from 'react-icons/fa6'
 import type { IconType } from 'react-icons'
 import { SNS_CONFIG } from '../../constants/snsConfig'
 import type { SnsLink, SnsPlatform } from '../../types/card'
@@ -19,7 +19,7 @@ const PLATFORM_ICONS: Record<SnsPlatform, IconType> = {
   x: SiX,
   facebook: SiFacebook,
   tiktok: SiTiktok,
-  linkedin: SiLinkedin,
+  linkedin: FaLinkedin,
   whatsapp: SiWhatsapp,
   github: SiGithub,
 }
