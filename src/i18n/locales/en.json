@@ -1,0 +1,31 @@
+{
+  "lp": {
+    "title": "Create Your Digital Business Card",
+    "subtitle": "Just pick a template and fill in your info",
+    "generateButton": "Generate QR Code",
+    "templateSection": "Choose a Template",
+    "profileSection": "Enter Your Profile",
+    "snsSection": "Add SNS Links"
+  },
+  "profile": {
+    "name": "Name",
+    "company": "Company",
+    "title": "Job Title",
+    "bio": "Bio",
+    "namePlaceholder": "John Doe",
+    "companyPlaceholder": "Acme Inc.",
+    "titlePlaceholder": "Engineer",
+    "bioPlaceholder": "Nice to meet you!"
+  },
+  "qr": {
+    "title": "Your QR Code is Ready",
+    "description": "Scan this QR code to view the digital business card",
+    "copy": "Copy URL",
+    "copied": "Copied!",
+    "close": "Close"
+  },
+  "card": {
+    "flip": "Tap to flip",
+    "loading": "Loading card..."
+  }
+}

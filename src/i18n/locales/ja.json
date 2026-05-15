@@ -1,0 +1,31 @@
+{
+  "lp": {
+    "title": "デジタル名刺を作ろう",
+    "subtitle": "テンプレートを選んで、情報を入力するだけ",
+    "generateButton": "QRコードを生成する",
+    "templateSection": "テンプレートを選ぶ",
+    "profileSection": "プロフィールを入力",
+    "snsSection": "SNSリンクを追加"
+  },
+  "profile": {
+    "name": "名前",
+    "company": "会社名",
+    "title": "肩書き",
+    "bio": "一言",
+    "namePlaceholder": "山田 太郎",
+    "companyPlaceholder": "株式会社〇〇",
+    "titlePlaceholder": "エンジニア",
+    "bioPlaceholder": "よろしくお願いします！"
+  },
+  "qr": {
+    "title": "QRコードが完成しました",
+    "description": "このQRコードをスキャンするとデジタル名刺が表示されます",
+    "copy": "URLをコピー",
+    "copied": "コピーしました！",
+    "close": "閉じる"
+  },
+  "card": {
+    "flip": "タップして裏面を見る",
+    "loading": "名刺を読み込んでいます..."
+  }
+}
