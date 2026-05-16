@@ -8,12 +8,13 @@ type Item = {
 
 type Props = {
   items: Item[]
-  selectedId: number
-  onSelect: (id: number) => void
+  selectedId?: number
+  onSelect: (id: number | undefined) => void
   type: 'background' | 'avatar'
+  allowDeselect?: boolean
 }
 
-export default function ImagePicker({ items, selectedId, onSelect, type }: Props) {
+export default function ImagePicker({ items, selectedId, onSelect, type, allowDeselect = false }: Props) {
   const { i18n } = useTranslation()
   const lang = i18n.language === 'en' ? 'en' : 'ja'
 
@@ -35,7 +36,13 @@ export default function ImagePicker({ items, selectedId, onSelect, type }: Props
         return (
           <button
             key={item.id}
-            onClick={() => onSelect(item.id)}
+            onClick={() => {
+              if (allowDeselect && isSelected) {
+                onSelect(undefined)
+              } else {
+                onSelect(item.id)
+              }
+            }}
             style={{
               scrollSnapAlign: 'start',
               display: 'flex',
@@ -49,6 +56,7 @@ export default function ImagePicker({ items, selectedId, onSelect, type }: Props
               flexShrink: 0,
               transform: isSelected ? 'scale(1.08)' : 'scale(1)',
               transition: 'transform 0.2s ease',
+              opacity: (allowDeselect && selectedId !== undefined && !isSelected) ? 0.6 : 1,
             }}
           >
             <div
@@ -78,16 +86,6 @@ export default function ImagePicker({ items, selectedId, onSelect, type }: Props
                 }}
               />
             </div>
-            <span
-              style={{
-                fontSize: '12px',
-                fontWeight: isSelected ? 700 : 400,
-                color: isSelected ? '#3b82f6' : '#555',
-                transition: 'color 0.2s ease, font-weight 0.2s ease',
-              }}
-            >
-              {item.label[lang]}
-            </span>
           </button>
         )
       })}

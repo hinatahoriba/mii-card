@@ -32,9 +32,8 @@ export default function LandingPage() {
     setIsQrOpen(true)
   }
 
-  // Fallback to templateSetId if backgroundId/avatarId are not set
+  // Fallback to templateSetId if backgroundId is not set
   const currentBackgroundId = config.backgroundId || config.templateSetId || 1
-  const currentAvatarId = config.avatarId || config.templateSetId || 1
 
   return (
     <div style={{ maxWidth: '480px', margin: '0 auto', padding: '16px', textAlign: 'left' }}>
@@ -54,12 +53,13 @@ export default function LandingPage() {
         type="background"
       />
 
-      <h2>アバターアイコン</h2>
+      <h2>アバターアイコン（任意）</h2>
       <ImagePicker
         items={AVATARS}
-        selectedId={currentAvatarId}
+        selectedId={config.avatarId}
         onSelect={setAvatarId}
         type="avatar"
+        allowDeselect={true}
       />
 
       <h2>アニメーション設定</h2>

@@ -14,11 +14,11 @@ export const BACKGROUNDS = [
 ]
 
 export const AVATARS = [
-  { id: 1, src: '/assets/icons/set-01-icon.webp', label: { ja: 'シンプル', en: 'Simple' } },
-  { id: 2, src: '/assets/icons/set-02-icon.webp', label: { ja: 'モダン', en: 'Modern' } },
-  { id: 3, src: '/assets/icons/set-03-icon.webp', label: { ja: 'ナチュラル', en: 'Natural' } },
-  { id: 4, src: '/assets/icons/set-04-icon.webp', label: { ja: 'ビジネス', en: 'Business' } },
-  { id: 5, src: '/assets/icons/set-05-icon.webp', label: { ja: 'クリエイティブ', en: 'Creative' } },
+  { id: 1, src: '/assets/icons/icon1.png', label: { ja: 'シンプル', en: 'Simple' } },
+  { id: 2, src: '/assets/icons/icon2.png', label: { ja: 'モダン', en: 'Modern' } },
+  { id: 3, src: '/assets/icons/icon3.png', label: { ja: 'ナチュラル', en: 'Natural' } },
+  { id: 4, src: '/assets/icons/icon4.png', label: { ja: 'ビジネス', en: 'Business' } },
+  { id: 5, src: '/assets/icons/icon5.png', label: { ja: 'クリエイティブ', en: 'Creative' } },
 ]
 
 export const TEMPLATE_SETS: TemplateSet[] = [

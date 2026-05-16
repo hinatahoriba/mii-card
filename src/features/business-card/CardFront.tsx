@@ -7,20 +7,22 @@ type Props = {
 
 export default function CardFront({ config }: Props) {
   // Support backward compatibility
-  const avId = config.avatarId || config.templateSetId || 1
-  const avatar = AVATARS.find((a) => a.id === avId) ?? AVATARS[0]
+  const avId = config.avatarId !== undefined ? config.avatarId : config.templateSetId
+  const avatar = avId !== undefined ? AVATARS.find((a) => a.id === avId) : undefined
 
   return (
     <div className="relative w-full h-full rounded-[40px] overflow-hidden shadow-2xl bg-white">
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center p-8 text-center text-neutral-900">
-        <div className="relative mb-8">
-          <img
-            src={avatar.src}
-            alt="avatar"
-            className="relative w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white"
-          />
-        </div>
+        {avatar && (
+          <div className="relative mb-8">
+            <img
+              src={avatar.src}
+              alt="avatar"
+              className="relative w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white"
+            />
+          </div>
+        )}
 
         {config.name && (
           <p className="m-0 text-3xl font-bold tracking-[0.15em] text-neutral-800">

@@ -10,9 +10,7 @@ const FIELD_MAX_LENGTH = {
 } as const
 
 const initialConfig: CardConfig = {
-  templateSetId: 1, // keeping for backwards compatibility, maybe default to undefined but 1 is fine
   backgroundId: 1,
-  avatarId: 1,
   name: '',
   company: '',
   title: '',
@@ -26,14 +24,14 @@ export function useTemplateState() {
   const [config, setConfig] = useState<CardConfig>(initialConfig)
 
   function setTemplateSetId(id: number): void {
-    setConfig((prev) => ({ ...prev, templateSetId: id, backgroundId: id, avatarId: id }))
+    setConfig((prev) => ({ ...prev, templateSetId: id, backgroundId: id, avatarId: undefined }))
   }
 
   function setBackgroundId(id: number): void {
     setConfig((prev) => ({ ...prev, backgroundId: id }))
   }
 
-  function setAvatarId(id: number): void {
+  function setAvatarId(id: number | undefined): void {
     setConfig((prev) => ({ ...prev, avatarId: id }))
   }
 
