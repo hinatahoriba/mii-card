@@ -12,6 +12,7 @@ import type { IconType } from 'react-icons'
 import { useTranslation } from 'react-i18next'
 import { SNS_CONFIG } from '../../constants/snsConfig'
 import type { CardConfig, SnsPlatform } from '../../types/card'
+import { motion } from 'framer-motion'
 
 type Props = {
   config: CardConfig
@@ -40,13 +41,20 @@ const PLATFORM_COLORS: Record<SnsPlatform, string> = {
 }
 
 function resolveUrl(platform: SnsPlatform, url: string): string {
+  if (!url) return ''
+  
+  let target = url
   if (platform === 'line' && SNS_CONFIG[platform].inputType === 'id') {
-    return `https://line.me/ti/p/~${url}`
+    target = `https://line.me/ti/p/~${url}`
+  } else if (platform === 'whatsapp' && SNS_CONFIG[platform].inputType === 'tel') {
+    target = `https://wa.me/${url}`
   }
-  if (platform === 'whatsapp' && SNS_CONFIG[platform].inputType === 'tel') {
-    return `https://wa.me/${url}`
+
+  // プロトコルがない場合は https:// を補完
+  if (target && !/^https?:\/\//i.test(target)) {
+    return `https://${target}`
   }
-  return url
+  return target
 }
 
 export default function CardBack({ config }: Props) {
@@ -64,21 +72,26 @@ export default function CardBack({ config }: Props) {
             FOLLOW ME!!
           </h2>
           
-          <div className="flex flex-wrap justify-center gap-6 text-[40px]">
+          <div className="flex flex-wrap justify-center gap-6 text-[45px]">
             {config.snsLinks.map(({ platform, url }) => {
               const Icon = PLATFORM_ICONS[platform]
               const href = resolveUrl(platform, url)
               const color = PLATFORM_COLORS[platform]
 
               return (
-                <button
+                <a
                   key={platform}
-                  onClick={() => window.open(href, '_blank')}
-                  className="transition-transform duration-300 hover:scale-125 hover:-translate-y-1 drop-shadow-md"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 hover:bg-white/20 transition-all duration-300 drop-shadow-lg cursor-pointer hover:scale-110 hover:-translate-y-2 z-10"
                   style={{ color }}
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <Icon />
-                </button>
+                  <div className="group-hover:animate-shake pointer-events-none flex items-center justify-center">
+                    <Icon />
+                  </div>
+                </a>
               )
             })}
           </div>

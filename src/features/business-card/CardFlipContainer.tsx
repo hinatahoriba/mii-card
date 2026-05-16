@@ -83,7 +83,7 @@ export default function CardFlipContainer({ config }: Props) {
           >
             {/* 表面 */}
             <div
-              className="absolute inset-0"
+              className={`absolute inset-0 ${isFlipped ? 'pointer-events-none' : 'pointer-events-auto'}`}
               style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <CardFront config={config} />
@@ -91,7 +91,7 @@ export default function CardFlipContainer({ config }: Props) {
 
             {/* 裏面: rotateY(180deg) で裏向きに配置 */}
             <div
-              className="absolute inset-0"
+              className={`absolute inset-0 ${isFlipped ? 'pointer-events-auto' : 'pointer-events-none'}`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
