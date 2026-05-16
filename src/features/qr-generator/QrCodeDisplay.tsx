@@ -1,4 +1,4 @@
-import { QRCodeSVG } from 'qrcode.react'
+import { QRCodeCanvas } from 'qrcode.react'
 
 type Props = {
   url: string
@@ -6,5 +6,5 @@ type Props = {
 }
 
 export default function QrCodeDisplay({ url, size = 256 }: Props) {
-  return <QRCodeSVG value={url} size={size} />
+  return <QRCodeCanvas id="qr-canvas" value={url} size={size} />
 }

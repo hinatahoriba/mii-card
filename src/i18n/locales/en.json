@@ -23,6 +23,7 @@
     "description": "Scan this QR code to view the digital business card",
     "copy": "Copy URL",
     "copied": "Copied!",
+    "download": "Save Image",
     "close": "Close"
   },
   "card": {

@@ -23,6 +23,7 @@
     "description": "このQRコードをスキャンするとデジタル名刺が表示されます",
     "copy": "URLをコピー",
     "copied": "コピーしました！",
+    "download": "画像として保存",
     "close": "閉じる"
   },
   "card": {

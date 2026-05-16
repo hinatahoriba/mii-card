@@ -42,6 +42,19 @@ export default function QrModal({ url, isOpen, onClose }: Props) {
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const handleDownload = () => {
+    const canvas = document.getElementById('qr-canvas') as HTMLCanvasElement
+    if (canvas) {
+      const pngUrl = canvas.toDataURL('image/png')
+      const downloadLink = document.createElement('a')
+      downloadLink.href = pngUrl
+      downloadLink.download = 'qrcode.png'
+      document.body.appendChild(downloadLink)
+      downloadLink.click()
+      document.body.removeChild(downloadLink)
+    }
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -70,6 +83,7 @@ export default function QrModal({ url, isOpen, onClose }: Props) {
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
             style={{
               backgroundColor: '#fff',
+              color: '#000',
               borderRadius: '12px',
               padding: '32px',
               display: 'flex',
@@ -80,15 +94,18 @@ export default function QrModal({ url, isOpen, onClose }: Props) {
               width: '100%',
             }}
           >
-            <h2 style={{ margin: 0 }}>{t('qr.title')}</h2>
+            <h2 style={{ margin: 0, color: '#000' }}>{t('qr.title')}</h2>
             <p style={{ margin: 0, textAlign: 'center', color: '#555' }}>
               {t('qr.description')}
             </p>
             <QrCodeDisplay url={url} />
-            <button onClick={handleCopy} style={{ width: '100%', padding: '10px', cursor: 'pointer' }}>
+            <button onClick={handleDownload} style={{ width: '100%', padding: '12px', cursor: 'pointer', backgroundColor: '#f1f1f1', border: '1px solid #ccc', borderRadius: '8px', color: '#000', fontWeight: 'bold' }}>
+              {t('qr.download')}
+            </button>
+            <button onClick={handleCopy} style={{ width: '100%', padding: '12px', cursor: 'pointer', backgroundColor: '#f1f1f1', border: '1px solid #ccc', borderRadius: '8px', color: '#000', fontWeight: 'bold' }}>
               {copied ? t('qr.copied') : t('qr.copy')}
             </button>
-            <button onClick={onClose} style={{ width: '100%', padding: '10px', cursor: 'pointer' }}>
+            <button onClick={onClose} style={{ width: '100%', padding: '12px', cursor: 'pointer', backgroundColor: '#333', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: 'bold' }}>
               {t('qr.close')}
             </button>
           </motion.div>
