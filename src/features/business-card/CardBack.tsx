@@ -55,87 +55,40 @@ export default function CardBack({ config }: Props) {
   const templateSet = TEMPLATE_SETS.find((t) => t.id === config.templateSetId) ?? TEMPLATE_SETS[0]
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        position: 'relative',
-        borderRadius: '16px',
-        overflow: 'hidden',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
-        backgroundImage: `url(${templateSet.backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* 半透明オーバーレイ */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.55)',
-        }}
+    <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800 group">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-overlay transition-transform duration-[2000ms] group-hover:scale-105"
+        style={{ backgroundImage: `url(${templateSet.backgroundImage})` }}
       />
+      
+      {/* Dark sleek gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/90 to-black/95" />
 
-      {/* コンテンツ */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '20px 24px',
-          overflowY: 'auto',
-          gap: '10px',
-          boxSizing: 'border-box',
-        }}
-      >
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col p-6 overflow-y-auto gap-4 scrollbar-hide">
         {config.snsLinks.length === 0 ? (
-          <div
-            style={{
-              flex: 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'rgba(255,255,255,0.6)',
-              fontSize: '13px',
-            }}
-          >
+          <div className="flex-1 flex items-center justify-center text-neutral-500 text-sm font-light tracking-widest uppercase">
             {t('card.noSns')}
           </div>
         ) : (
-          config.snsLinks.map(({ platform, url }) => {
-            const Icon = PLATFORM_ICONS[platform]
-            const href = resolveUrl(platform, url)
+          <div className="flex flex-col justify-center min-h-full gap-3 my-auto">
+            {config.snsLinks.map(({ platform, url }) => {
+              const Icon = PLATFORM_ICONS[platform]
+              const href = resolveUrl(platform, url)
 
-            return (
-              <button
-                key={platform}
-                onClick={() => window.open(href, '_blank')}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  width: '100%',
-                  padding: '10px 16px',
-                  borderRadius: '10px',
-                  border: 'none',
-                  cursor: 'pointer',
-                  backgroundColor: SNS_CONFIG[platform].color,
-                  color: '#ffffff',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  letterSpacing: '0.02em',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                  flexShrink: 0,
-                }}
-              >
-                <Icon size={20} />
-                {PLATFORM_LABELS[platform]}
-              </button>
-            )
-          })
+              return (
+                <button
+                  key={platform}
+                  onClick={() => window.open(href, '_blank')}
+                  className="group/btn flex items-center gap-4 w-full px-5 py-3 rounded-xl border border-neutral-800/60 bg-neutral-900/40 backdrop-blur-md text-neutral-300 hover:text-white hover:border-neutral-500 hover:bg-neutral-800/80 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-neutral-950/50"
+                >
+                  <Icon size={18} className="text-neutral-500 group-hover/btn:text-white transition-colors duration-300" />
+                  <span className="text-[11px] font-medium tracking-[0.2em] uppercase">{PLATFORM_LABELS[platform]}</span>
+                </button>
+              )
+            })}
+          </div>
         )}
       </div>
     </div>

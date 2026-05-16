@@ -9,116 +9,47 @@ export default function CardFront({ config }: Props) {
   const templateSet = TEMPLATE_SETS.find((t) => t.id === config.templateSetId) ?? TEMPLATE_SETS[0]
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        position: 'relative',
-        borderRadius: '16px',
-        overflow: 'hidden',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
-        backgroundImage: `url(${templateSet.backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* 半透明オーバーレイ */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.45)',
-        }}
+    <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-neutral-900 group border border-neutral-800">
+      {/* Background Image with subtle overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay transition-transform duration-[2000ms] group-hover:scale-105"
+        style={{ backgroundImage: `url(${templateSet.backgroundImage})` }}
       />
+      
+      {/* Dark sleek gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-neutral-950/80 to-neutral-900/40" />
 
-      {/* コンテンツ */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '24px 32px',
-          gap: '6px',
-          textAlign: 'center',
-          color: '#ffffff',
-          boxSizing: 'border-box',
-        }}
-      >
-        {/* アバターフレーム */}
-        <img
-          src={templateSet.avatarFrame}
-          alt="avatar"
-          style={{
-            width: '64px',
-            height: '64px',
-            borderRadius: '50%',
-            objectFit: 'cover',
-            border: '3px solid rgba(255,255,255,0.8)',
-            marginBottom: '8px',
-            flexShrink: 0,
-          }}
-        />
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center p-6 text-center text-neutral-100">
+        <div className="relative mb-5">
+          <div className="absolute -inset-1 bg-gradient-to-r from-neutral-600 to-neutral-300 rounded-full blur opacity-20 group-hover:opacity-40 transition duration-700"></div>
+          <img
+            src={templateSet.avatarFrame}
+            alt="avatar"
+            className="relative w-20 h-20 rounded-full object-cover border border-neutral-700 shadow-xl"
+          />
+        </div>
 
         {config.name && (
-          <p
-            style={{
-              margin: 0,
-              fontSize: 'clamp(16px, 4vw, 22px)',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
-              lineHeight: 1.3,
-              textShadow: '0 1px 4px rgba(0,0,0,0.5)',
-            }}
-          >
+          <p className="m-0 text-2xl md:text-3xl font-light tracking-[0.15em] text-white">
             {config.name}
           </p>
         )}
 
         {config.company && (
-          <p
-            style={{
-              margin: 0,
-              fontSize: 'clamp(11px, 2.5vw, 13px)',
-              fontWeight: 500,
-              opacity: 0.9,
-              letterSpacing: '0.06em',
-              textShadow: '0 1px 3px rgba(0,0,0,0.5)',
-            }}
-          >
+          <p className="m-0 text-[11px] md:text-xs font-medium tracking-[0.2em] text-neutral-400 mt-2 uppercase">
             {config.company}
           </p>
         )}
 
         {config.title && (
-          <p
-            style={{
-              margin: 0,
-              fontSize: 'clamp(10px, 2.2vw, 12px)',
-              opacity: 0.8,
-              letterSpacing: '0.05em',
-              textShadow: '0 1px 3px rgba(0,0,0,0.5)',
-            }}
-          >
+          <p className="m-0 text-[10px] md:text-[11px] tracking-[0.2em] text-neutral-500 uppercase mt-1">
             {config.title}
           </p>
         )}
 
         {config.bio && (
-          <p
-            style={{
-              margin: '6px 0 0',
-              fontSize: 'clamp(9px, 2vw, 11px)',
-              fontStyle: 'italic',
-              opacity: 0.75,
-              lineHeight: 1.5,
-              maxWidth: '90%',
-              textShadow: '0 1px 3px rgba(0,0,0,0.5)',
-            }}
-          >
+          <p className="mt-5 text-[10px] md:text-xs font-light tracking-wider text-neutral-400 leading-relaxed max-w-[85%] border-t border-neutral-800 pt-5">
             {config.bio}
           </p>
         )}

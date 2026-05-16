@@ -35,21 +35,11 @@ export default function CardPage() {
 
   if (!config) {
     return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '16px',
-          fontFamily: 'sans-serif',
-        }}
-      >
-        <p style={{ fontSize: '18px', margin: 0, color: '#374151' }}>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 font-sans bg-neutral-950">
+        <p className="text-lg m-0 text-neutral-400">
           {t('card.notFound')}
         </p>
-        <Link to="/" style={{ color: '#6366f1', textDecoration: 'underline' }}>
+        <Link to="/" className="text-neutral-500 hover:text-white transition-colors underline underline-offset-4 tracking-widest text-sm">
           {t('card.backToTop')}
         </Link>
       </div>
@@ -57,23 +47,17 @@ export default function CardPage() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '32px',
-        backgroundColor: '#f3f4f6',
-        padding: '16px',
-        boxSizing: 'border-box',
-      }}
-    >
-      {loading && (
-        <CardLoadingAnimation onComplete={handleLoadComplete} />
-      )}
-      {!loading && <CardFlipContainer config={config} />}
+    <div className="min-h-screen flex flex-col items-center justify-center gap-8 bg-neutral-950 p-4 sm:p-8 relative overflow-hidden">
+      {/* Ambient lighting */}
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-neutral-800/30 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-neutral-900/50 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+
+      <div className="relative z-10 w-full max-w-[420px] mx-auto flex flex-col items-center justify-center">
+        {loading && (
+          <CardLoadingAnimation onComplete={handleLoadComplete} />
+        )}
+        {!loading && <CardFlipContainer config={config} />}
+      </div>
     </div>
   )
 }

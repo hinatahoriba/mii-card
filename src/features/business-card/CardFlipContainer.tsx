@@ -17,44 +17,33 @@ export default function CardFlipContainer({ config }: Props) {
   const { t } = useTranslation()
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', width: '100%' }}>
+    <div className="flex flex-col items-center gap-8 w-full relative">
       <div
+        className="w-full cursor-pointer group"
         style={{
-          perspective: '1000px',
-          width: '400px',
-          maxWidth: '100%',
+          perspective: '1200px',
           aspectRatio: `${CARD_ASPECT} / 1`,
-          cursor: 'pointer',
         }}
         onClick={() => setIsFlipped((prev) => !prev)}
       >
         <motion.div
           animate={{ rotateY: isFlipped ? 180 : 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-          style={{
-            width: '100%',
-            height: '100%',
-            position: 'relative',
-            transformStyle: 'preserve-3d',
-          }}
+          transition={{ type: 'spring', stiffness: 50, damping: 15 }}
+          className="w-full h-full relative"
+          style={{ transformStyle: 'preserve-3d' }}
         >
           {/* 表面 */}
           <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              backfaceVisibility: 'hidden',
-              WebkitBackfaceVisibility: 'hidden',
-            }}
+            className="absolute inset-0"
+            style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
           >
             <CardFront config={config} />
           </div>
 
           {/* 裏面: rotateY(180deg) で裏向きに配置し、scaleX(-1) で文字の鏡反転を補正 */}
           <div
+            className="absolute inset-0"
             style={{
-              position: 'absolute',
-              inset: 0,
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
               transform: 'rotateY(180deg) scaleX(-1)',
@@ -65,19 +54,14 @@ export default function CardFlipContainer({ config }: Props) {
         </motion.div>
       </div>
 
-      {!isFlipped && (
-        <p
-          style={{
-            margin: 0,
-            fontSize: '13px',
-            color: 'rgba(0, 0, 0, 0.45)',
-            letterSpacing: '0.04em',
-            userSelect: 'none',
-          }}
-        >
-          {t('card.flip')}
-        </p>
-      )}
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: isFlipped ? 0 : 1, y: isFlipped ? 10 : 0 }}
+        transition={{ duration: 0.5 }}
+        className="m-0 text-[10px] uppercase tracking-[0.3em] text-neutral-600 select-none font-medium"
+      >
+        {t('card.flip')}
+      </motion.p>
     </div>
   )
 }
