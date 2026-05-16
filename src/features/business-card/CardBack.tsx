@@ -10,7 +10,6 @@ import {
 import { FaLinkedin } from 'react-icons/fa6'
 import type { IconType } from 'react-icons'
 import { useTranslation } from 'react-i18next'
-import { TEMPLATE_SETS } from '../../constants/templateSets'
 import { SNS_CONFIG } from '../../constants/snsConfig'
 import type { CardConfig, SnsPlatform } from '../../types/card'
 
@@ -29,15 +28,15 @@ const PLATFORM_ICONS: Record<SnsPlatform, IconType> = {
   github: SiGithub,
 }
 
-const PLATFORM_LABELS: Record<SnsPlatform, string> = {
-  line: 'LINE',
-  instagram: 'Instagram',
-  x: 'X',
-  facebook: 'Facebook',
-  tiktok: 'TikTok',
-  linkedin: 'LinkedIn',
-  whatsapp: 'WhatsApp',
-  github: 'GitHub',
+const PLATFORM_COLORS: Record<SnsPlatform, string> = {
+  line: '#06C755',
+  instagram: '#E1306C',
+  x: '#000000',
+  facebook: '#1877F2',
+  tiktok: '#000000',
+  linkedin: '#0077B5',
+  whatsapp: '#25D366',
+  github: '#181717',
 }
 
 function resolveUrl(platform: SnsPlatform, url: string): string {
@@ -52,45 +51,39 @@ function resolveUrl(platform: SnsPlatform, url: string): string {
 
 export default function CardBack({ config }: Props) {
   const { t } = useTranslation()
-  const templateSet = TEMPLATE_SETS.find((t) => t.id === config.templateSetId) ?? TEMPLATE_SETS[0]
 
   return (
-    <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800 group">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-overlay transition-transform duration-[2000ms] group-hover:scale-105"
-        style={{ backgroundImage: `url(${templateSet.backgroundImage})` }}
-      />
-      
-      {/* Dark sleek gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/90 to-black/95" />
-
-      {/* Content */}
-      <div className="relative z-10 h-full flex flex-col p-6 overflow-y-auto gap-4 scrollbar-hide">
-        {config.snsLinks.length === 0 ? (
-          <div className="flex-1 flex items-center justify-center text-neutral-500 text-sm font-light tracking-widest uppercase">
-            {t('card.noSns')}
-          </div>
-        ) : (
-          <div className="flex flex-col justify-center min-h-full gap-3 my-auto">
+    <div className="relative w-full h-full rounded-[40px] overflow-hidden shadow-2xl bg-white/80 backdrop-blur-xl border border-white/50 flex flex-col items-center justify-center p-8">
+      {config.snsLinks.length === 0 ? (
+        <div className="text-neutral-500 text-sm font-medium tracking-widest uppercase">
+          {t('card.noSns')}
+        </div>
+      ) : (
+        <div className="w-full flex flex-col items-center">
+          <h2 className="text-2xl font-black text-neutral-800 tracking-[0.2em] mb-12">
+            FOLLOW ME!!
+          </h2>
+          
+          <div className="flex flex-wrap justify-center gap-6 text-[40px]">
             {config.snsLinks.map(({ platform, url }) => {
               const Icon = PLATFORM_ICONS[platform]
               const href = resolveUrl(platform, url)
+              const color = PLATFORM_COLORS[platform]
 
               return (
                 <button
                   key={platform}
                   onClick={() => window.open(href, '_blank')}
-                  className="group/btn flex items-center gap-4 w-full px-5 py-3 rounded-xl border border-neutral-800/60 bg-neutral-900/40 backdrop-blur-md text-neutral-300 hover:text-white hover:border-neutral-500 hover:bg-neutral-800/80 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-neutral-950/50"
+                  className="transition-transform duration-300 hover:scale-125 hover:-translate-y-1 drop-shadow-md"
+                  style={{ color }}
                 >
-                  <Icon size={18} className="text-neutral-500 group-hover/btn:text-white transition-colors duration-300" />
-                  <span className="text-[11px] font-medium tracking-[0.2em] uppercase">{PLATFORM_LABELS[platform]}</span>
+                  <Icon />
                 </button>
               )
             })}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

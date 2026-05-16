@@ -1,5 +1,7 @@
 export type Locale = 'ja' | 'en'
 
+export type AnimationType = 'game' | 'mystery' | 'elegant' | 'simple'
+
 export type SnsPlatform =
   | 'line'
   | 'instagram'
@@ -16,11 +18,14 @@ export type SnsLink = {
 }
 
 export type CardConfig = {
-  templateSetId: number
+  templateSetId?: number
+  avatarId?: number
+  backgroundId?: number
   name: string
   company: string
   title: string
   bio: string
   snsLinks: SnsLink[]
   locale: Locale
+  animationType?: AnimationType
 }

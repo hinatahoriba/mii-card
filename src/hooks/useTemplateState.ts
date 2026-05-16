@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import i18n from '../i18n'
-import type { CardConfig, Locale, SnsPlatform } from '../types/card'
+import type { CardConfig, Locale, SnsPlatform, AnimationType } from '../types/card'
 
 const FIELD_MAX_LENGTH = {
   name: 30,
@@ -10,20 +10,31 @@ const FIELD_MAX_LENGTH = {
 } as const
 
 const initialConfig: CardConfig = {
-  templateSetId: 1,
+  templateSetId: 1, // keeping for backwards compatibility, maybe default to undefined but 1 is fine
+  backgroundId: 1,
+  avatarId: 1,
   name: '',
   company: '',
   title: '',
   bio: '',
   snsLinks: [],
   locale: 'ja',
+  animationType: 'mystery',
 }
 
 export function useTemplateState() {
   const [config, setConfig] = useState<CardConfig>(initialConfig)
 
   function setTemplateSetId(id: number): void {
-    setConfig((prev) => ({ ...prev, templateSetId: id }))
+    setConfig((prev) => ({ ...prev, templateSetId: id, backgroundId: id, avatarId: id }))
+  }
+
+  function setBackgroundId(id: number): void {
+    setConfig((prev) => ({ ...prev, backgroundId: id }))
+  }
+
+  function setAvatarId(id: number): void {
+    setConfig((prev) => ({ ...prev, avatarId: id }))
   }
 
   function setProfileField(
@@ -58,12 +69,19 @@ export function useTemplateState() {
     setConfig((prev) => ({ ...prev, locale }))
   }
 
+  function setAnimationType(type: AnimationType): void {
+    setConfig((prev) => ({ ...prev, animationType: type }))
+  }
+
   return {
     config,
     setTemplateSetId,
+    setBackgroundId,
+    setAvatarId,
     setProfileField,
     toggleSnsLink,
     updateSnsUrl,
     setLocale,
+    setAnimationType,
   }
 }

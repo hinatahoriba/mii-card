@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import { useTemplateState } from '../hooks/useTemplateState'
-import TemplateSetPicker from '../features/template-selector/TemplateSetPicker'
+import ImagePicker from '../features/template-selector/ImagePicker'
+import { BACKGROUNDS, AVATARS } from '../constants/templateSets'
 import ProfileFormSection from '../features/template-selector/ProfileFormSection'
 import SnsLinkEditor from '../features/template-selector/SnsLinkEditor'
 import QrModal from '../features/qr-generator/QrModal'
@@ -15,7 +16,7 @@ function generateCardUrl(config: Parameters<typeof encodeCardConfig>[0]): string
 
 export default function LandingPage() {
   const { t } = useTranslation()
-  const { config, setTemplateSetId, setProfileField, toggleSnsLink, updateSnsUrl } = useTemplateState()
+  const { config, setTemplateSetId, setBackgroundId, setAvatarId, setProfileField, toggleSnsLink, updateSnsUrl, setAnimationType } = useTemplateState()
   const [isQrOpen, setIsQrOpen] = useState(false)
   const [cardUrl, setCardUrl] = useState('')
   const [nameError, setNameError] = useState('')
@@ -31,6 +32,10 @@ export default function LandingPage() {
     setIsQrOpen(true)
   }
 
+  // Fallback to templateSetId if backgroundId/avatarId are not set
+  const currentBackgroundId = config.backgroundId || config.templateSetId || 1
+  const currentAvatarId = config.avatarId || config.templateSetId || 1
+
   return (
     <div style={{ maxWidth: '480px', margin: '0 auto', padding: '16px', textAlign: 'left' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
@@ -41,11 +46,33 @@ export default function LandingPage() {
       </div>
       <p style={{ marginBottom: '8px' }}>{t('lp.subtitle')}</p>
 
-      <h2>{t('lp.templateSection')}</h2>
-      <TemplateSetPicker
-        selectedId={config.templateSetId}
-        onSelect={setTemplateSetId}
+      <h2>背景画像</h2>
+      <ImagePicker
+        items={BACKGROUNDS}
+        selectedId={currentBackgroundId}
+        onSelect={setBackgroundId}
+        type="background"
       />
+
+      <h2>アバターアイコン</h2>
+      <ImagePicker
+        items={AVATARS}
+        selectedId={currentAvatarId}
+        onSelect={setAvatarId}
+        type="avatar"
+      />
+
+      <h2>アニメーション設定</h2>
+      <select 
+        value={config.animationType || 'mystery'} 
+        onChange={(e) => setAnimationType(e.target.value as any)}
+        style={{ width: '100%', padding: '12px', fontSize: '16px', borderRadius: '8px', border: '1px solid #ccc', marginBottom: '24px' }}
+      >
+        <option value="mystery">ミステリー（激しく震えて飛び出す）</option>
+        <option value="game">ゲーム（ポップインしてバウンド）</option>
+        <option value="elegant">エレガント（ふわっとフェードイン）</option>
+        <option value="simple">シンプル（スライドアップ）</option>
+      </select>
 
       <h2>{t('lp.profileSection')}</h2>
       <ProfileFormSection

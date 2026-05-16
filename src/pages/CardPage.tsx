@@ -6,6 +6,7 @@ import { useDecodedCard } from '../hooks/useCardParams'
 import { usePageMeta } from '../hooks/usePageMeta'
 import CardLoadingAnimation from '../features/business-card/CardLoadingAnimation'
 import CardFlipContainer from '../features/business-card/CardFlipContainer'
+import { BACKGROUNDS } from '../constants/templateSets'
 
 export default function CardPage() {
   const config = useDecodedCard()
@@ -46,11 +47,17 @@ export default function CardPage() {
     )
   }
 
+  // Support backward compatibility
+  const bgId = config.backgroundId || config.templateSetId || 1
+  const background = BACKGROUNDS.find((b) => b.id === bgId) ?? BACKGROUNDS[0]
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-8 bg-neutral-950 p-4 sm:p-8 relative overflow-hidden">
-      {/* Ambient lighting */}
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-neutral-800/30 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-neutral-900/50 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+    <div 
+      className="min-h-screen flex flex-col items-center justify-center gap-8 bg-neutral-900 p-4 sm:p-8 relative overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: `url(${background.src})` }}
+    >
+      {/* Background Overlay */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
 
       <div className="relative z-10 w-full max-w-[420px] mx-auto flex flex-col items-center justify-center">
         {loading && (
