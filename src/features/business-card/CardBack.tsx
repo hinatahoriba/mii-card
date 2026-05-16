@@ -12,7 +12,6 @@ import type { IconType } from 'react-icons'
 import { useTranslation } from 'react-i18next'
 import { SNS_CONFIG } from '../../constants/snsConfig'
 import type { CardConfig, SnsPlatform } from '../../types/card'
-import { motion } from 'framer-motion'
 
 type Props = {
   config: CardConfig
