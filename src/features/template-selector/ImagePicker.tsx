@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 type Item = {
   id: number
   src: string
@@ -15,9 +13,6 @@ type Props = {
 }
 
 export default function ImagePicker({ items, selectedId, onSelect, type, allowDeselect = false }: Props) {
-  const { i18n } = useTranslation()
-  const lang = i18n.language === 'en' ? 'en' : 'ja'
-
   return (
     <div
       style={{

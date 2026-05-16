@@ -16,7 +16,7 @@ function generateCardUrl(config: Parameters<typeof encodeCardConfig>[0]): string
 
 export default function LandingPage() {
   const { t } = useTranslation()
-  const { config, setTemplateSetId, setBackgroundId, setAvatarId, setProfileField, toggleSnsLink, updateSnsUrl, setAnimationType } = useTemplateState()
+  const { config, setBackgroundId, setAvatarId, setProfileField, toggleSnsLink, updateSnsUrl, setAnimationType } = useTemplateState()
   const [isQrOpen, setIsQrOpen] = useState(false)
   const [cardUrl, setCardUrl] = useState('')
   const [nameError, setNameError] = useState('')
@@ -49,7 +49,7 @@ export default function LandingPage() {
       <ImagePicker
         items={BACKGROUNDS}
         selectedId={currentBackgroundId}
-        onSelect={setBackgroundId}
+        onSelect={(id) => id !== undefined && setBackgroundId(id)}
         type="background"
       />
 

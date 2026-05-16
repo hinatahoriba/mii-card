@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { FaArrowsRotate } from 'react-icons/fa6'
 import CardFront from './CardFront'
 import CardBack from './CardBack'
-import type { CardConfig, AnimationType } from '../../types/card'
+import type { CardConfig } from '../../types/card'
 
 const ANIMATION_VARIANTS: Record<string, { initial: any, animate: any, transition: any }> = {
   game: {

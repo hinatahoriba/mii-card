@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 
 type Props = {
   onComplete: () => void
@@ -19,7 +20,7 @@ export default function CardLoadingAnimation({ onComplete }: Props) {
     }
   }, [onComplete])
 
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -32,7 +33,7 @@ export default function CardLoadingAnimation({ onComplete }: Props) {
     }
   }
 
-  const item = {
+  const item: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
   }
